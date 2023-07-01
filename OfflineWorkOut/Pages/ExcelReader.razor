@@ -1,11 +1,10 @@
-﻿@page "/upload"
+﻿@page "/load-data"
 @using System.Data;
-@using OfflineWorkOut.Infrastructure;
+@using OfflineWorkOut.Infrastructure.Services;
 @inject HttpClient Http
+@inject ExcelService excelService
 
-<h1>Upload Data</h1>
-
-<p>This component demonstrates uploading data from Excel.</p>
+<OWOPageTitle>Cargar datos</OWOPageTitle>
 
 <InputFile id="fileInput" OnChange="UploadFiles" hidden single />
 
@@ -17,7 +16,7 @@
     Upload Files
 </MudButton>
 
-@if (dataTables.First() is null)
+@if (dataTables is null || dataTables.First() is null)
 {
     <p><em>Please upload Excel File</em></p>
 }
@@ -47,5 +46,5 @@ else
     {
     }
 
-    private async Task UploadFiles(InputFileChangeEventArgs e) => dataTables = await ExcelHelper.GetDataTableFromExcel(e.File);
+    private async Task UploadFiles(InputFileChangeEventArgs e) => dataTables = await excelService.GetDataTableFromExcel(e.File);
 }

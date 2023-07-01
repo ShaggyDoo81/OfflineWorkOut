@@ -2,12 +2,21 @@
 using Microsoft.AspNetCore.Components.Forms;
 using System.Data;
 using OfflineWorkOut.Application.Extensions;
+using SqliteWasmHelper;
+using OfflineWorkOut.Infrastructure.DbContexts;
 
-namespace OfflineWorkOut.Infrastructure
+namespace OfflineWorkOut.Infrastructure.Services
 {
-    public static class ExcelHelper
+    public class ExcelService
     {
-        public static async Task<List<DataTable>> GetDataTableFromExcel(IBrowserFile file)
+        private readonly ISqliteWasmDbContextFactory<OfflineWorkoutDbContext> _dbContext;
+
+        public ExcelService(ISqliteWasmDbContextFactory<OfflineWorkoutDbContext> dbContext) 
+        {
+            _dbContext = dbContext;
+        }
+
+        public async Task<List<DataTable>> GetDataTableFromExcel(IBrowserFile file)
         {
             List<DataTable> dtTable = new();
 
@@ -16,8 +25,8 @@ namespace OfflineWorkOut.Infrastructure
                 await file.OpenReadStream(file.Size).CopyToAsync(memStream);
                 using XLWorkbook workBook = new(memStream);
                 foreach (var sheet in workBook.Worksheets)
-                { 
-                    dtTable.Add(await ReadSheet(sheet));    
+                {
+                    dtTable.Add(await ReadSheet(sheet));
                 }
 
                 ////Loop through the Worksheet rows.
@@ -50,7 +59,7 @@ namespace OfflineWorkOut.Infrastructure
             return dtTable;
         }
 
-        private static async Task<DataTable> ReadSheet(IXLWorksheet workSheet)
+        private async Task<DataTable> ReadSheet(IXLWorksheet workSheet)
         {
             var type = workSheet.Name.GetSheetType();
             if (type == Application.Enums.SheetType.Workout)
@@ -58,7 +67,7 @@ namespace OfflineWorkOut.Infrastructure
             return new DataTable();
         }
 
-        private static async Task<DataTable> ReadSheetWorkout(IXLWorksheet workSheet)
+        private async Task<DataTable> ReadSheetWorkout(IXLWorksheet workSheet)
         {
             return new DataTable();
         }
