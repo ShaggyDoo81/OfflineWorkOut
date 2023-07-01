@@ -1,0 +1,51 @@
+﻿@page "/upload"
+@using System.Data;
+@using OfflineWorkOut.Infrastructure;
+@inject HttpClient Http
+
+<h1>Upload Data</h1>
+
+<p>This component demonstrates uploading data from Excel.</p>
+
+<InputFile id="fileInput" OnChange="UploadFiles" hidden single />
+
+<MudButton HtmlTag="label"
+           Variant="Variant.Filled"
+           Color="Color.Primary"
+           StartIcon="@Icons.Filled.CloudUpload"
+           for="fileInput">
+    Upload Files
+</MudButton>
+
+@if (dataTables.First() is null)
+{
+    <p><em>Please upload Excel File</em></p>
+}
+else
+{
+    <MudTable Items="@dataTables.First().AsEnumerable().Take(500)" Hover="true" Breakpoint="Breakpoint.Sm" T="DataRow" RowsPerPage="100">
+        <HeaderContent>
+            @foreach (DataColumn col in dataTables.First().Columns)
+            {
+                <MudTh>@col.ColumnName</MudTh>
+            }
+        </HeaderContent>
+        <RowTemplate>
+            @foreach (var cell in context.ItemArray)
+            {
+                <MudTd>@cell.ToString()</MudTd>
+            }
+        </RowTemplate>
+    </MudTable>
+}
+
+@code {
+    //private IList<IBrowserFile> files = new List<IBrowserFile>();
+    private List<DataTable> dataTables;
+
+    protected override async Task OnInitializedAsync()
+    {
+    }
+
+    private async Task UploadFiles(InputFileChangeEventArgs e) => dataTables = await ExcelHelper.GetDataTableFromExcel(e.File);
+}
