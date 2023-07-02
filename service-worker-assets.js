@@ -105,7 +105,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-8JIF2MihUmdZKIJz+sepJ5G\/nKBbWfq8DTRSlIpNmsc=",
+      "hash": "sha256-tq1lsJrFDUKc9kNBK7z1x1HfU0QQ+x5vp4S\/1NKq2Yc=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -245,23 +245,23 @@
       "url": "_framework\/netstandard.wasm"
     },
     {
-      "hash": "sha256-AgHcWfdoKmdAoa1nvpJeJWLlylIbJ1TFcTt\/g4xqqDE=",
+      "hash": "sha256-3lEBIbgEKOLHcNET9ylvjHWLQyY7luR3UWrf1VGFbm8=",
       "url": "_framework\/OfflineWorkOut.Application.wasm"
     },
     {
-      "hash": "sha256-YtxB44mXznnKctXcsXENYq\/9XHxYcYMYeAs4J0HwXxk=",
+      "hash": "sha256-z6lhSMPAZoq5vxG52cOCy0kkOZQV68YSd7P+GHnhKW0=",
       "url": "_framework\/OfflineWorkOut.Components.wasm"
     },
     {
-      "hash": "sha256-libp4M8ial5Iy0lxwn2igpJo5z985cK7yhEOvAeK6go=",
+      "hash": "sha256-f2wXOS6IMITxtoEJTwKSV4bwvqltkTwA6UGT1GOM0IU=",
       "url": "_framework\/OfflineWorkOut.Domain.wasm"
     },
     {
-      "hash": "sha256-uWoYIZH4D\/d+BQ5Jc7F+XNObLUDXb9mgPAx9yamOfSU=",
+      "hash": "sha256-kz1b6kVJncy+2+oVYbuffFI7phY4\/A7mIOtp\/MlliWw=",
       "url": "_framework\/OfflineWorkOut.Infrastructure.wasm"
     },
     {
-      "hash": "sha256-NoxqB7G9sF9Gkq4ZwCa\/BNaVxAvueYKLpVNJCHr+CY0=",
+      "hash": "sha256-jfhUg67WJ95alFtBm2wkdtNQH20NTxYCMiACcstsxG0=",
       "url": "_framework\/OfflineWorkOut.wasm"
     },
     {
@@ -569,5 +569,5 @@
       "url": "_content\/OfflineWorkOut.Components\/OfflineWorkOut.Components.bundle.scp.css"
     }
   ],
-  "version": "MFfKRWFW"
+  "version": "MYxTO4hL"
 };
