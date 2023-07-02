@@ -9,6 +9,6 @@ namespace OfflineWorkOut.Application.Constants
     public static class InternalURLs
     {
         public const string LoadExcel = "load-data";
-
+        public const string Home = "/";
     }
 }

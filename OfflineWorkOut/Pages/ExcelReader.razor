@@ -1,28 +1,83 @@
 ﻿@page "/load-data"
 @using System.Data;
+@using OfflineWorkOut.Application.Models.DTOs;
 @using OfflineWorkOut.Infrastructure.Services;
-@inject HttpClient Http
+@*@inject HttpClient Http*@
 @inject ExcelService excelService
 
 <OWOPageTitle>Cargar datos</OWOPageTitle>
 
-<InputFile id="fileInput" OnChange="UploadFiles" hidden single />
-
-<MudButton HtmlTag="label"
-           Variant="Variant.Filled"
-           Color="Color.Primary"
-           StartIcon="@Icons.Filled.CloudUpload"
-           for="fileInput">
-    Upload Files
-</MudButton>
-
-@if (dataTables is null || dataTables.First() is null)
+@if (wopData is null || !wopData.Any())
 {
+    <InputFile id="fileInput" OnChange="UploadFiles" hidden single />
+
+    <OWOButton HtmlTag="label"
+               Variant="Variant.Filled"
+               Color="Color.Primary"
+               StartIcon="@Icons.Filled.CloudUpload"
+               for="fileInput">
+        Cargar fichero
+    </OWOButton>
     <p><em>Please upload Excel File</em></p>
 }
 else
 {
-    <MudTable Items="@dataTables.First().AsEnumerable().Take(500)" Hover="true" Breakpoint="Breakpoint.Sm" T="DataRow" RowsPerPage="100">
+    <MudStack Row="true">
+        <MudButton HtmlTag="label"
+                   Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   Class="mb-2"
+                   StartIcon="@Icons.Filled.ClearAll"
+                   OnClick="ClearData">
+            Resetear datos
+        </MudButton>
+        <MudSpacer />
+        <OWOButton HtmlTag="label"
+                   Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   Class="mb-2"
+                   StartIcon="@Icons.Filled.ClearAll"
+                   OnClickAsync="LoadData">
+            Cargar en la aplicación
+        </OWOButton>
+    </MudStack>
+
+    @foreach (var wk in wopData)
+    {
+        <MudCard Style="background-color: var(--mud-palette-primary); color: var(--mud-palette-primary-text)" Class="mb-2">
+            <MudCardContent>
+                <MudStack Row="true" Spacing="4">
+                    <MudIcon Icon="@CustomIcons.MainIcon" Size="Size.Large"></MudIcon>
+                    <MudStack Spacing="0" Style="margin-top: -0.5em;">
+                        <MudText>Rutina "@wk.Name"</MudText>
+                        <MudText Typo="Typo.body2">Carga los datos de esta rutina</MudText>
+                    </MudStack>
+                </MudStack>
+                <MudExpansionPanels>
+                    <MudExpansionPanel>
+                        @foreach(var item in wk.ExerciseSets)
+                        {
+                            <MudCard>
+                                <MudCardHeader>
+                                    @item.Name
+                                </MudCardHeader>
+                                <MudCardContent>
+                                    @item.Note
+                                    @item.RestTime
+                                </MudCardContent>
+                            </MudCard>
+                        }
+                    </MudExpansionPanel>
+                </MudExpansionPanels>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Secondary" Href="@_urlService.GetUrl(InternalURLs.LoadExcel)">Empezar esta rutina</MudButton>
+            </MudCardActions>
+        </MudCard>
+
+    }
+
+    @*<MudTable Items="@dataTables.First().AsEnumerable().Take(500)" Hover="true" Breakpoint="Breakpoint.Sm" T="DataRow" RowsPerPage="100">
         <HeaderContent>
             @foreach (DataColumn col in dataTables.First().Columns)
             {
@@ -35,16 +90,26 @@ else
                 <MudTd>@cell.ToString()</MudTd>
             }
         </RowTemplate>
-    </MudTable>
+    </MudTable>*@
 }
 
 @code {
     //private IList<IBrowserFile> files = new List<IBrowserFile>();
-    private List<DataTable> dataTables;
+    private List<WorkoutPlanDto>? wopData = null;
 
     protected override async Task OnInitializedAsync()
     {
     }
 
-    private async Task UploadFiles(InputFileChangeEventArgs e) => dataTables = await excelService.GetDataTableFromExcel(e.File);
+    private async Task UploadFiles(InputFileChangeEventArgs e) => wopData = await excelService.GetDataTableFromExcel(e.File);
+
+    private async Task ClearData()
+    {
+        wopData = null;    
+    }
+
+    private async Task LoadData()
+    {
+        await _woService.LoadData(wopData);
+    }
 }

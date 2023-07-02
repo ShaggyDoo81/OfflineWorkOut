@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfflineWorkOut.Application"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfflineWorkOut.Domain", "OfflineWorkOut.Domain\OfflineWorkOut.Domain.csproj", "{0DBE4431-CDD9-46C3-9A38-32887EE595CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfflineWorkOut.Components", "OfflineWorkOut.Components\OfflineWorkOut.Components.csproj", "{883B6E57-0C35-4252-A2DE-C05C6A8A7325}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfflineWorkOut.Components", "OfflineWorkOut.Components\OfflineWorkOut.Components.csproj", "{883B6E57-0C35-4252-A2DE-C05C6A8A7325}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

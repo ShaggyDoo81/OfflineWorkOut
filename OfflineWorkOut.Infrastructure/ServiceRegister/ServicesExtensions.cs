@@ -17,12 +17,25 @@ namespace OfflineWorkOut.Infrastructure.ServiceRegister
     {
         public static IServiceCollection AddOWOServices(this IServiceCollection services, WebAssemblyHostBuilder builder)
         {
-            services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             services.AddMudServices();
+            services.AddDatabaseServices();
+            services.AddBaseServices(builder);
+            return services;
+        }
+
+        private static IServiceCollection AddBaseServices(this IServiceCollection services, WebAssemblyHostBuilder builder)
+        {
+            //services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            services.AddScoped<ExcelService>();
+            services.AddScoped<InternalURLService>();
+            services.AddScoped<WorkoutsService>();
+            return services;
+        }
+
+        private static IServiceCollection AddDatabaseServices(this IServiceCollection services)
+        {
             services.AddSqliteWasmDbContextFactory<OfflineWorkoutDbContext>(
                 opts => opts.UseSqlite("Data Source=OfflineWorkoutDbContext.sqlite3"));
-            services.AddTransient<ExcelService>();
-            services.AddTransient<InternalURLService>();
             return services;
         }
     }

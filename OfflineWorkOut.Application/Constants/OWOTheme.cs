@@ -14,8 +14,7 @@ namespace OfflineWorkOut.Application.Constants
             Palette = new PaletteLight()
             {
                 Primary = Colors.Blue.Darken4,
-                Secondary = Colors.Green.Accent4,
-                //Define other properties here.  
+                // Secondary = Colors.Green.Accent4,
             },
 
         };

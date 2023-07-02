@@ -16,11 +16,12 @@
                 <MudIcon Icon="@CustomIcons.MainIcon" Size="Size.Large" Color="Color.Primary" />
                 <MudText Typo="Typo.h6">@TextsConstants.AppName</MudText>
             </MudStack>
+            <MudDivider Class="my-2" />
         </MudDrawerHeader>
         <NavMenu />
     </MudDrawer>
     <MudMainContent>
-        <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+        <MudContainer Class="mt-8 px-8" MaxWidth="MaxWidth.False">
             @Body
         </MudContainer>
     </MudMainContent>

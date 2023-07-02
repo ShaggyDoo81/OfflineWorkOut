@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Components.Routing;
 <MudNavMenu Rounded="true" Margin="Margin.Dense" Color="Color.Primary" Class="pa-2">
-    <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Dashboard">Inicio</MudNavLink>
+    <MudNavLink Href="@_urlService.GetUrl(InternalURLs.Home)" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Dashboard">Inicio</MudNavLink>
     <MudNavLink Href="@_urlService.GetUrl(InternalURLs.LoadExcel)" Match="NavLinkMatch.All" Icon="@CustomIcons.Upload">Cargar fichero</MudNavLink>
 @*    <MudNavGroup Title="Settings" Expanded="true">
         <MudNavLink Href="/users" Match="NavLinkMatch.Prefix">Users</MudNavLink>
