@@ -1,6 +1,6 @@
 {
-  "name": "OfflineWorkOut",
-  "short_name": "OfflineWorkOut",
+  "name": "Offline Workout",
+  "short_name": "OfflineWorkout",
   "id": "./",
   "start_url": "./",
   "display": "standalone",
